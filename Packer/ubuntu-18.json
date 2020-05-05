@@ -1,0 +1,75 @@
+{
+    "builders": [
+      {
+        "type": "vsphere-iso",
+  
+        "vcenter_server":      "{{user `vcenter_server`}}",
+        "username":            "{{user `username`}}",
+        "password":            "{{user `password`}}",
+        "insecure_connection": "true",
+  
+        "vm_name": "{{user `template_name`}}",
+        "datastore": "{{user `datastore`}}",
+        "folder": "{{user `folder`}}",
+        "host":     "{{user `host`}}",
+        "convert_to_template": "true",
+        "cluster": "{{user `cluster`}}",
+        "network": "{{user `network`}}",
+        "boot_wait": "1s",
+        "boot_order": "disk,cdrom",
+  
+        "guest_os_type": "ubuntu64Guest",
+  
+        "ssh_username": "{{user `ssh_username`}}",
+        "ssh_password": "{{user `ssh_password`}}",
+  
+        "CPUs":             "{{user `cpu_number`}}",
+        "RAM":              "{{user `ram_amount`}}",
+        "RAM_reserve_all": false,
+  
+        "disk_controller_type":  "pvscsi",
+        "disk_size":        "{{user `disk_size`}}",
+        "disk_thin_provisioned": true,
+  
+        "network_card": "vmxnet3",
+  
+        "iso_urls": "http://cdimage.ubuntu.com/ubuntu/releases/bionic/release/ubuntu-18.04.4-server-amd64.iso",
+        "iso_checksum": "e2ecdace33c939527cbc9e8d23576381c493b071107207d2040af72595f8990b",
+        "iso_checksum_type": "sha256",
+
+        "boot_command": [
+          "<wait><esc><wait><f6><wait><esc><wait>",
+          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>", 
+          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "auto=true",
+          " auto-install/enable=true",
+          " preseed/url=http://{{user `seed_file_domain`}}/{{user `seed_filename`}}",
+          " vga=788",
+          " initrd=/install/initrd.gz",
+          " fb=false debconf/frontend=noninteractive",
+          " hostname=UbuntuTemplate",
+          " debian-installer=en_US auto locale=en_US kbd-chooser/method=us",
+          " keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA",
+          " keyboard-configuration/variant=USA console-setup/ask_detect=false",
+          " ---<enter>"
+        ]
+      }
+    ],
+
+    "provisioners": [
+      {
+        "type": "shell",
+        "execute_command": "echo '{{user `ssh_password`}}'|{{.Vars}} sudo -E -S bash '{{.Path}}'",
+        "scripts": [
+          "scripts/update.sh",
+          "scripts/install_perl.sh",
+          "scripts/user_no_password_sudo.sh"
+        ]
+      }
+    ]
+  }

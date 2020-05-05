@@ -1,0 +1,16 @@
+variable vsphere_user {}
+variable vsphere_password {}
+variable vsphere_server {}
+variable vsphere_datacenter_name {}
+variable vsphere_resource_pool {}
+variable vsphere_host {}
+variable vsphere_datastore {}
+variable vsphere_network {}
+variable vm_name {}
+variable ip_address {}
+variable netmask {}
+variable def_gw {}
+variable dns_server {}
+variable domain {}
+variable ssh_username {}
+variable ssh_password {}

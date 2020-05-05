@@ -1,0 +1,18 @@
+{
+    "vcenter_server":"vcenter.example.com",
+    "username":"administrator@example.com",
+    "password":"VMware1!",
+    "datastore":"Example-Datastore-Name",
+    "folder": "",
+    "host":"esxi02.example.com",
+    "cluster": "Example Lab Cluster",
+    "network": "VM Network",
+    "ssh_username": "user",
+    "ssh_password": "qwe123",
+    "seed_file_domain": "192.168.55.163",
+    "seed_filename": "preseed.cfg",
+    "cpu_number": "2",
+    "ram_amount": "2048",
+    "disk_size": "8024",
+    "template_name": "template_ubuntu18"
+}
