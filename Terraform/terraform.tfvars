@@ -19,5 +19,5 @@ def_gw = "192.168.1.1"
 dns_server = ["8.8.8.8"]
 domain = "example.com"
 
-ssh_username = "root"
+ssh_username = "user"
 ssh_password = "qwe123"
